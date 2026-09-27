@@ -1,0 +1,10 @@
+{
+  "supplier": "0x1111111111111111111111111111111111111111",
+  "brief": "Build and deliver a maintainable solar-powered water testing station for rural clinics, meeting the agreed safety and performance criteria.",
+  "criteria_json": "[{\"criterion_id\":\"weatherproofing\",\"description\":\"The enclosure withstands the documented outdoor rain exposure without water reaching electronics.\",\"allocation_units\":60},{\"criterion_id\":\"calibration\",\"description\":\"The conductivity sensor readings stay within the agreed calibration tolerance.\",\"allocation_units\":40}]",
+  "total_units": 100,
+  "delivery_deadline_iso": "2030-01-05T00:00:00Z",
+  "final_resolution_deadline_iso": "2030-01-20T00:00:00Z",
+  "review_window_seconds": 86400,
+  "max_repair_versions": 1
+}

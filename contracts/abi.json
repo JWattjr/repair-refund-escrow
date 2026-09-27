@@ -1,0 +1,200 @@
+{
+  "ctor": {
+    "params": [
+      [
+        "supplier",
+        "address"
+      ],
+      [
+        "brief",
+        "string"
+      ],
+      [
+        "criteria_json",
+        "string"
+      ],
+      [
+        "total_units",
+        "int"
+      ],
+      [
+        "delivery_deadline_iso",
+        "string"
+      ],
+      [
+        "final_resolution_deadline_iso",
+        "string"
+      ],
+      [
+        "review_window_seconds",
+        "int"
+      ],
+      [
+        "max_repair_versions",
+        "int"
+      ]
+    ],
+    "kwparams": {}
+  },
+  "methods": {
+    "accept_terms": {
+      "params": [
+        [
+          "expected_terms_digest",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "close_review_without_claims": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "confirm_cancellation": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "expire_final_resolution": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "expire_initial_delivery": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "get_accounting": {
+      "params": [],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "dict"
+    },
+    "get_claim": {
+      "params": [
+        [
+          "criterion_id",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "dict"
+    },
+    "get_criterion_state": {
+      "params": [
+        [
+          "criterion_id",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "dict"
+    },
+    "get_submission": {
+      "params": [
+        [
+          "version",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "dict"
+    },
+    "get_terms": {
+      "params": [],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "dict"
+    },
+    "reject_terms": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "request_cancellation": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "null",
+      "payable": false
+    },
+    "review_repair_version": {
+      "params": [
+        [
+          "deliverable_version",
+          "int"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "submit_defects": {
+      "params": [
+        [
+          "deliverable_version",
+          "int"
+        ],
+        [
+          "claims_json",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "submit_initial_deliverable": {
+      "params": [
+        [
+          "deliverable_url",
+          "string"
+        ],
+        [
+          "delivery_summary",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "submit_repair_version": {
+      "params": [
+        [
+          "deliverable_url",
+          "string"
+        ],
+        [
+          "repair_summary",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    }
+  }
+}
