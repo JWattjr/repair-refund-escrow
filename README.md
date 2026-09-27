@@ -8,7 +8,7 @@ At settlement, the full allocation for an accepted or remedied criterion is rele
 
 ## Toolchain
 
-The contract pins `py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng`, accepted by the installed GenVM linter. The official First Contract guide still uses a different runner hash as its example; this undeployed project has not verified acceptance on a target network. `requirements.txt` pins the locally installed v0.6 RC test toolchain.
+The contract pins `py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6`, accepted by the installed GenVM linter. The fallback runner finalized a trivial StudioNet deployment and write/read-back probe; this project contract has not yet been deployed. `requirements.txt` pins the locally installed v0.6 RC test toolchain.
 
 ```powershell
 py -3.14 -m venv .venv

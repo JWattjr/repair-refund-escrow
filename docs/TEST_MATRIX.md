@@ -14,4 +14,7 @@ Run `python -m pytest` from the repository root. Direct-mode tests mock web/mode
 | No buyer claim by the review deadline accepts all criteria under frozen terms | `test_missed_review_deadline_accepts_all_criteria_without_claim_expansion` |
 | Budget, allocation sum, review window, and repair limit are bounded | `test_constructor_rejects_unfunded_allocations_or_unbounded_policy` (4 parameter cases) |
 
-The recorded direct-mode run passed 12 tests. GenVM lint passed 3 checks, SDK validation reported 16 methods (5 views and 11 writes), and schema extraction succeeded. No deployment was run.
+| Every model-returned judgment field is validated and compared or bound to frozen input | `test_every_returned_judgment_field_is_compared_or_snapshot_bound` |
+| HTTP error, empty body, oversized body, and invalid UTF-8 keep defect allocations held for final review | `test_unavailable_claim_evidence_remains_held_and_can_be_refunded_at_final_deadline` (four response cases) |
+
+The recorded direct-mode run passed 16 tests. GenVM lint passed 3 checks, SDK validation reported 16 methods (5 views and 11 writes), and schema extraction succeeded. No deployment was run.

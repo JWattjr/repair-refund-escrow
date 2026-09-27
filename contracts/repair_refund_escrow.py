@@ -1,4 +1,4 @@
-# { "Depends": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng" }
+# { "Depends": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6" }
 
 """Versioned repair reviews with criterion-specific release or refund."""
 
@@ -7,7 +7,7 @@ import hashlib
 import json
 import re
 
-import genlayer as gl
+from genlayer import *
 
 
 MAX_CRITERIA = 8
@@ -68,13 +68,9 @@ def _time_text(value: str, label: str) -> str:
 
 
 def _now() -> datetime:
-    message = getattr(gl, "message", None)
-    value = getattr(message, "datetime", None)
-    if value is None:
-        raw = getattr(message, "raw", {})
-        value = raw.get("datetime", "") if isinstance(raw, dict) else ""
+    raw = getattr(gl, "message_raw", {})
+    value = raw.get("datetime", "") if isinstance(raw, dict) else ""
     return _time(str(value), "block time")
-
 
 def _address_key(value) -> str:
     if isinstance(value, bytes):
@@ -234,43 +230,43 @@ def _result_vector(value: dict) -> tuple:
     )
 
 
-class RepairRefundEscrow(gl.contract.Contract):
+class RepairRefundEscrow(gl.Contract):
     buyer: str
     supplier: str
     brief: str
     criteria_json: str
-    total_units: gl.u256
+    total_units: u256
     delivery_deadline_iso: str
     final_resolution_deadline_iso: str
-    review_window_seconds: gl.u256
-    max_repair_versions: gl.u256
+    review_window_seconds: u256
+    max_repair_versions: u256
     terms_digest: str
     terms_accepted: bool
     phase: str
-    escrow_units: gl.u256
-    released_units: gl.u256
-    refunded_units: gl.u256
-    deliverable_version: gl.u256
-    repair_versions: gl.u256
+    escrow_units: u256
+    released_units: u256
+    refunded_units: u256
+    deliverable_version: u256
+    repair_versions: u256
     review_deadline_iso: str
     settlement_done: bool
     cancellation_requested: bool
-    submissions: gl.storage.TreeMap[str, str]
-    submission_order: gl.storage.DynArray[str]
-    criterion_states: gl.storage.TreeMap[str, str]
-    claims: gl.storage.TreeMap[str, str]
-    claim_order: gl.storage.DynArray[str]
+    submissions: TreeMap[str, str]
+    submission_order: DynArray[str]
+    criterion_states: TreeMap[str, str]
+    claims: TreeMap[str, str]
+    claim_order: DynArray[str]
 
     def __init__(
         self,
-        supplier: gl.Address,
+        supplier: Address,
         brief: str,
         criteria_json: str,
-        total_units: gl.u256,
+        total_units: u256,
         delivery_deadline_iso: str,
         final_resolution_deadline_iso: str,
-        review_window_seconds: gl.u256,
-        max_repair_versions: gl.u256,
+        review_window_seconds: u256,
+        max_repair_versions: u256,
     ):
         self.buyer = _address_key(gl.message.sender_address)
         self.supplier = _address_key(supplier)
@@ -281,7 +277,7 @@ class RepairRefundEscrow(gl.contract.Contract):
             raise gl.vm.UserError("[EXPECTED] escrow budget must be positive and bounded")
         criteria = _criteria(criteria_json, int(total_units))
         self.criteria_json = _canonical(criteria)
-        self.total_units = gl.u256(int(total_units))
+        self.total_units = u256(int(total_units))
         self.delivery_deadline_iso = _time_text(delivery_deadline_iso, "delivery deadline")
         self.final_resolution_deadline_iso = _time_text(final_resolution_deadline_iso, "final resolution deadline")
         now = _now()
@@ -293,8 +289,8 @@ class RepairRefundEscrow(gl.contract.Contract):
             raise gl.vm.UserError("[EXPECTED] review window must be from one minute to thirty days")
         if type(max_repair_versions) is bool or not isinstance(max_repair_versions, int) or not 1 <= int(max_repair_versions) <= MAX_REPAIR_VERSIONS:
             raise gl.vm.UserError("[EXPECTED] repair versions must be between one and three")
-        self.review_window_seconds = gl.u256(int(review_window_seconds))
-        self.max_repair_versions = gl.u256(int(max_repair_versions))
+        self.review_window_seconds = u256(int(review_window_seconds))
+        self.max_repair_versions = u256(int(max_repair_versions))
         terms = {
             "buyer": self.buyer,
             "supplier": self.supplier,
@@ -311,10 +307,10 @@ class RepairRefundEscrow(gl.contract.Contract):
         self.terms_accepted = False
         self.phase = "AWAITING_SUPPLIER_ACCEPTANCE"
         self.escrow_units = self.total_units
-        self.released_units = gl.u256(0)
-        self.refunded_units = gl.u256(0)
-        self.deliverable_version = gl.u256(0)
-        self.repair_versions = gl.u256(0)
+        self.released_units = u256(0)
+        self.refunded_units = u256(0)
+        self.deliverable_version = u256(0)
+        self.repair_versions = u256(0)
         self.review_deadline_iso = ""
         self.settlement_done = False
         self.cancellation_requested = False
@@ -414,7 +410,7 @@ INPUT_JSON: """ + _canonical(snapshot)
             except Exception:
                 return False
 
-        return gl.vm.run_nondet(leader_fn, validator_fn)
+        return gl.vm.run_nondet_unsafe(leader_fn, validator_fn)
 
     def _snapshot_for_defects(self, base: dict, claim_rows: list, submission: dict) -> dict:
         urls = [submission["url"]]
@@ -479,7 +475,7 @@ INPUT_JSON: """ + _canonical(snapshot)
             except Exception:
                 return False
 
-        return gl.vm.run_nondet(leader_fn, validator_fn)
+        return gl.vm.run_nondet_unsafe(leader_fn, validator_fn)
 
     def _snapshot_for_repairs(self, base: dict, submission: dict, defects: list) -> dict:
         urls = [submission["url"]]
@@ -523,9 +519,9 @@ INPUT_JSON: """ + _canonical(snapshot)
                 raise gl.vm.UserError("[INVARIANT] criterion has an unknown settlement state")
         if supplier_amount + buyer_amount != int(self.escrow_units):
             raise gl.vm.UserError("[INVARIANT] criterion allocations do not equal remaining escrow")
-        self.escrow_units = gl.u256(0)
-        self.released_units += gl.u256(supplier_amount)
-        self.refunded_units += gl.u256(buyer_amount)
+        self.escrow_units = u256(0)
+        self.released_units += u256(supplier_amount)
+        self.refunded_units += u256(buyer_amount)
         self.settlement_done = True
         self.phase = terminal_phase
         return {"phase": terminal_phase, "released_units": supplier_amount, "refunded_units": buyer_amount}
@@ -572,7 +568,7 @@ INPUT_JSON: """ + _canonical(snapshot)
         version = int(self.deliverable_version) + 1
         submission = {"version": version, "kind": "INITIAL", "url": url, "summary": summary,
                       "submitted_at": _now().strftime("%Y-%m-%dT%H:%M:%SZ")}
-        self.deliverable_version = gl.u256(version)
+        self.deliverable_version = u256(version)
         self.submissions[str(version)] = _canonical(submission)
         self.submission_order.append(str(version))
         review_end = min(_now() + timedelta(seconds=int(self.review_window_seconds)), _time(self.final_resolution_deadline_iso, "final resolution deadline"))
@@ -581,7 +577,7 @@ INPUT_JSON: """ + _canonical(snapshot)
         return {"deliverable_version": version, "review_deadline": self.review_deadline_iso}
 
     @gl.public.write
-    def submit_defects(self, deliverable_version: gl.u256, claims_json: str) -> dict:
+    def submit_defects(self, deliverable_version: u256, claims_json: str) -> dict:
         if self._sender() != self.buyer or self.phase != "AWAITING_CLAIMS":
             raise gl.vm.UserError("[EXPECTED] only the buyer may submit defects for the current review")
         if int(deliverable_version) != int(self.deliverable_version):
@@ -647,15 +643,15 @@ INPUT_JSON: """ + _canonical(snapshot)
         repair_version = int(self.repair_versions) + 1
         submission = {"version": version, "repair_version": repair_version, "kind": "REPAIR",
                       "url": url, "summary": summary, "submitted_at": _now().strftime("%Y-%m-%dT%H:%M:%SZ")}
-        self.deliverable_version = gl.u256(version)
-        self.repair_versions = gl.u256(repair_version)
+        self.deliverable_version = u256(version)
+        self.repair_versions = u256(repair_version)
         self.submissions[str(version)] = _canonical(submission)
         self.submission_order.append(str(version))
         self.phase = "AWAITING_REPAIR_REVIEW"
         return {"deliverable_version": version, "repair_version": repair_version, "open_defect_count": len(self._open_defects())}
 
     @gl.public.write
-    def review_repair_version(self, deliverable_version: gl.u256) -> dict:
+    def review_repair_version(self, deliverable_version: u256) -> dict:
         if self.phase != "AWAITING_REPAIR_REVIEW" or int(deliverable_version) != int(self.deliverable_version):
             raise gl.vm.UserError("[EXPECTED] no matching repair version awaits review")
         if _now() >= _time(self.final_resolution_deadline_iso, "final resolution deadline"):
@@ -718,7 +714,7 @@ INPUT_JSON: """ + _canonical(snapshot)
                 "phase": self.phase}
 
     @gl.public.view
-    def get_submission(self, version: gl.u256) -> dict:
+    def get_submission(self, version: u256) -> dict:
         return self._load_submission(int(version))
 
     @gl.public.view

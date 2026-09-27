@@ -190,13 +190,19 @@ def test_malformed_and_disagreeing_defect_assessments_do_not_change_claim_state(
     assert direct_vm.run_validator(leader_result=disagreement) is False
 
 
+@pytest.mark.parametrize("web_response", [
+    pytest.param({"status": 503, "body": b"service unavailable"}, id="non-200"),
+    pytest.param({"status": 200, "body": b""}, id="empty"),
+    pytest.param({"status": 200, "body": b"x" * 5001}, id="oversized"),
+    pytest.param({"status": 200, "body": b"\xff"}, id="invalid-utf8"),
+])
 def test_unavailable_claim_evidence_remains_held_and_can_be_refunded_at_final_deadline(
-    direct_vm, direct_deploy, direct_owner, direct_alice
+    direct_vm, direct_deploy, direct_owner, direct_alice, web_response
 ):
     contract = deploy(direct_vm, direct_deploy, direct_owner, direct_alice)
     accept_terms(contract, direct_vm, direct_alice)
     submit_initial(contract, direct_vm, direct_alice)
-    direct_vm.mock_web(r".*", {"status": 503, "body": "unavailable"})
+    direct_vm.mock_web(r".*", web_response)
     direct_vm.mock_llm(r"DEFECT CLAIM REVIEW", llm({"results": [
         {"criterion_id": "weatherproofing", "finding": "UNCERTAIN", "citations": []},
         {"criterion_id": "calibration", "finding": "UNCERTAIN", "citations": []},
