@@ -13,4 +13,4 @@ python -m pytest tests/test_escrow.py::test_one_defect_is_repaired_and_the_other
 5. The rain seal is found remedied; calibration remains unresolved. The contract releases 60 units to the supplier and refunds 40 to the buyer.
 6. The claim history remains queryable with each repair finding, and replaying review cannot settle again.
 
-Tests use mocks and synthetic units. They demonstrate the contract transition, not real work quality or asset transfer.
+Direct tests use mocks and synthetic units. They cover the intended contract transition, not real work quality or asset transfer. The 2026-09-28 StudioNet attempt is recorded separately: the initial judgment finalized as UNDETERMINED/MAJORITY_DISAGREE, public state remained AWAITING_CLAIMS, and no repair or replay write followed.

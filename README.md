@@ -10,7 +10,7 @@ At settlement, the full allocation for an accepted or remedied criterion is rele
 
 ## Toolchain
 
-The contract pins `py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6`, accepted by the installed GenVM linter. The fallback runner finalized a trivial StudioNet deployment and write/read-back probe; this project contract has not yet been deployed. `requirements.txt` pins the locally installed v0.6 RC test toolchain.
+The source pins `py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6`. A StudioNet deployment at `0xbb0DD15b1E0C0b747332063E38A3a1356d44E079` matches source commit `2e03cc01d71f728e1d1df98178822f51c0c61a2b` and its contract-file Git blob. Supplier acceptance and version 1 finalized successfully. The initial defect judgment finalized as `UNDETERMINED` with `MAJORITY_DISAGREE`; public views remain `AWAITING_CLAIMS`, so no repair was submitted. The release record documents the incomplete attempt. This repository remains private. `requirements.txt` pins the locally installed v0.6 RC test toolchain.
 
 ```powershell
 py -3.14 -m venv .venv

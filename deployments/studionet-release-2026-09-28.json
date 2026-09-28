@@ -1,0 +1,780 @@
+{
+  "schema_version": "1.0",
+  "release_date": "2026-09-28",
+  "timezone": "Africa/Lagos",
+  "project": {
+    "name": "repair-refund-escrow",
+    "repository": "https://github.com/JWattjr/repair-refund-escrow",
+    "source_branch": "master",
+    "source_path": "contracts/repair_refund_escrow.py",
+    "source_commit": "2e03cc01d71f728e1d1df98178822f51c0c61a2b",
+    "source_git_blob_sha1": "29cd50c29a0b994cb2a000b58ddcb14ec8c2df7c",
+    "source_bytes": 38911
+  },
+  "network": {
+    "name": "GenLayer StudioNet",
+    "chain_id": 61999,
+    "rpc": "https://studio.genlayer.com/api",
+    "portal_used": false
+  },
+  "runner": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6",
+  "toolchain": {
+    "GenLayerJS": "1.1.8",
+    "GenLayer CLI": "0.39.2",
+    "Python": "3.14.2",
+    "genlayer-py": "0.19.0rc2",
+    "genlayer-test": "0.30.0rc2",
+    "genvm-linter": "0.11.1rc2"
+  },
+  "contract_constructor_args": [
+    "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+    "Build and deliver a maintainable solar-powered water testing station for rural clinics, meeting the agreed safety and performance criteria.",
+    "[{\"criterion_id\":\"weatherproofing\",\"description\":\"The enclosure withstands the documented outdoor rain exposure without water reaching electronics.\",\"allocation_units\":60},{\"criterion_id\":\"calibration\",\"description\":\"The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard.\",\"allocation_units\":40}]",
+    100,
+    "2030-01-05T00:00:00Z",
+    "2030-01-20T00:00:00Z",
+    86400,
+    1
+  ],
+  "contract_address": "0xbb0DD15b1E0C0b747332063E38A3a1356d44E079",
+  "participants": [
+    {
+      "role": "buyer",
+      "account_label": "moment-grid-studionet",
+      "address": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92"
+    },
+    {
+      "role": "supplier",
+      "account_label": "portal-five-release",
+      "address": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8"
+    }
+  ],
+  "evidence_sources": [
+    {
+      "url": "https://archive-api.open-meteo.com/v1/archive?latitude=6.5244&longitude=3.3792&start_date=2026-07-10&end_date=2026-07-10&daily=precipitation_sum&timezone=UTC",
+      "anonymous_http_status": 200,
+      "raw_body_bytes": 286,
+      "curl_size_download": 286,
+      "utf8": "valid",
+      "nonempty": true,
+      "within_contract_cap": true,
+      "final_url": "https://archive-api.open-meteo.com/v1/archive?latitude=6.5244&longitude=3.3792&start_date=2026-07-10&end_date=2026-07-10&daily=precipitation_sum&timezone=UTC",
+      "checked_at_utc": "2026-09-28T01:55:00.850818+00:00"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DFRobot/GravityTDS/master/GravityTDSExample/GravityTDSExample.ino",
+      "anonymous_http_status": 200,
+      "raw_body_bytes": 1876,
+      "curl_size_download": 1876,
+      "utf8": "valid",
+      "nonempty": true,
+      "within_contract_cap": true,
+      "final_url": "https://raw.githubusercontent.com/DFRobot/GravityTDS/master/GravityTDSExample/GravityTDSExample.ino",
+      "checked_at_utc": "2026-09-28T01:55:01.489669+00:00"
+    }
+  ],
+  "evidence_limit_bytes": 5000,
+  "transactions": [
+    {
+      "operation": "deploy_repair_refund_escrow",
+      "hash": "0x995b91e52a8cfb30f1f8c1c25ef3ecdd334ffb899f9a16c5b41036f6d3de7106",
+      "actor": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+      "submission_status": "SUBMITTED",
+      "expected_failure": false,
+      "acceptance_poll_status": "ACCEPTED",
+      "finality_status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "leader_result_code": "return",
+      "leader_result_payload": {
+        "raw": "AAA=",
+        "status": "return",
+        "payload": {
+          "raw": [
+            0
+          ],
+          "readable": "null"
+        }
+      },
+      "consensus_result": "MAJORITY_AGREE",
+      "rounds": 1,
+      "votes_committed": 5,
+      "votes_revealed": 5,
+      "vote_types": {
+        "AGREE": 5
+      }
+    },
+    {
+      "operation": "accept_frozen_terms",
+      "hash": "0xfc548cfdea532e29e26cfe7755618b3e199811ecaa51665227d43ab909cc3801",
+      "actor": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+      "submission_status": "SUBMITTED",
+      "expected_failure": false,
+      "acceptance_poll_status": "ACCEPTED",
+      "finality_status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "leader_result_code": "return",
+      "leader_result_payload": {
+        "raw": "ABYFcGhhc2XMAUFXQUlUSU5HX0lOSVRJQUxfREVMSVZFUlkMdGVybXNfZGlnZXN0vARzaGEyNTY6MWFhMTBmNzVkMmUwYzUyMDE3ODI1NTYwMTE5M2E1NmJhNjIwODI1M2FmMTFkMmVmYzI1NDBkOTJjYTMxNGJlNg==",
+        "status": "return",
+        "payload": {
+          "raw": [
+            22,
+            5,
+            112,
+            104,
+            97,
+            115,
+            101,
+            204,
+            1,
+            65,
+            87,
+            65,
+            73,
+            84,
+            73,
+            78,
+            71,
+            95,
+            73,
+            78,
+            73,
+            84,
+            73,
+            65,
+            76,
+            95,
+            68,
+            69,
+            76,
+            73,
+            86,
+            69,
+            82,
+            89,
+            12,
+            116,
+            101,
+            114,
+            109,
+            115,
+            95,
+            100,
+            105,
+            103,
+            101,
+            115,
+            116,
+            188,
+            4,
+            115,
+            104,
+            97,
+            50,
+            53,
+            54,
+            58,
+            49,
+            97,
+            97,
+            49,
+            48,
+            102,
+            55,
+            53,
+            100,
+            50,
+            101,
+            48,
+            99,
+            53,
+            50,
+            48,
+            49,
+            55,
+            56,
+            50,
+            53,
+            53,
+            54,
+            48,
+            49,
+            49,
+            57,
+            51,
+            97,
+            53,
+            54,
+            98,
+            97,
+            54,
+            50,
+            48,
+            56,
+            50,
+            53,
+            51,
+            97,
+            102,
+            49,
+            49,
+            100,
+            50,
+            101,
+            102,
+            99,
+            50,
+            53,
+            52,
+            48,
+            100,
+            57,
+            50,
+            99,
+            97,
+            51,
+            49,
+            52,
+            98,
+            101,
+            54
+          ],
+          "readable": "{\"phase\":\"AWAITING_INITIAL_DELIVERY\",\"terms_digest\":\"sha256:1aa10f75d2e0c520178255601193a56ba6208253af11d2efc2540d92ca314be6\"}"
+        }
+      },
+      "consensus_result": "MAJORITY_AGREE",
+      "rounds": 1,
+      "votes_committed": 5,
+      "votes_revealed": 5,
+      "vote_types": {
+        "AGREE": 3,
+        "IDLE": 2
+      }
+    },
+    {
+      "operation": "submit_initial_deliverable_v1",
+      "hash": "0x5b4219f65ff90beb7c4e2a612a04d958fd8aebcf4624112bfcbe2a38ec815ed1",
+      "actor": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+      "submission_status": "SUBMITTED",
+      "expected_failure": false,
+      "acceptance_poll_status": "ACCEPTED",
+      "finality_status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "leader_result_code": "return",
+      "leader_result_payload": {
+        "raw": "ABYTZGVsaXZlcmFibGVfdmVyc2lvbgkPcmV2aWV3X2RlYWRsaW5lpAEyMDI2LTA5LTI5VDAxOjU2OjM2Wg==",
+        "status": "return",
+        "payload": {
+          "raw": [
+            22,
+            19,
+            100,
+            101,
+            108,
+            105,
+            118,
+            101,
+            114,
+            97,
+            98,
+            108,
+            101,
+            95,
+            118,
+            101,
+            114,
+            115,
+            105,
+            111,
+            110,
+            9,
+            15,
+            114,
+            101,
+            118,
+            105,
+            101,
+            119,
+            95,
+            100,
+            101,
+            97,
+            100,
+            108,
+            105,
+            110,
+            101,
+            164,
+            1,
+            50,
+            48,
+            50,
+            54,
+            45,
+            48,
+            57,
+            45,
+            50,
+            57,
+            84,
+            48,
+            49,
+            58,
+            53,
+            54,
+            58,
+            51,
+            54,
+            90
+          ],
+          "readable": "{\"deliverable_version\":1,\"review_deadline\":\"2026-09-29T01:56:36Z\"}"
+        }
+      },
+      "consensus_result": "MAJORITY_AGREE",
+      "rounds": 1,
+      "votes_committed": 5,
+      "votes_revealed": 5,
+      "vote_types": {
+        "AGREE": 3,
+        "IDLE": 2
+      }
+    },
+    {
+      "operation": "judge_two_initial_defect_claims",
+      "hash": "0x2151aa10698625e689fed2362cdc7d07d04eca3c1280d0cca277760664a96cc7",
+      "actor": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+      "submission_status": "SUBMITTED",
+      "expected_failure": false,
+      "acceptance_poll_status": "UNDETERMINED",
+      "finality_status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "leader_result_code": "return",
+      "leader_result_payload": {
+        "raw": "AB4Rb3Blbl9kZWZlY3RfY291bnQRBXBoYXNlfFJFUEFJUl9SRVFVSVJFRA1yZXZpZXdfZGlnZXN0vARzaGEyNTY6NmE1MDQyYzk4NmM1YzljMzQwNjVmNWJhOWQwOGE5N2VlNzdiYzk4MmFjNmViZWNjYjQxMGUzZGUyNzgyYTMyNg==",
+        "status": "return",
+        "payload": {
+          "raw": [
+            30,
+            17,
+            111,
+            112,
+            101,
+            110,
+            95,
+            100,
+            101,
+            102,
+            101,
+            99,
+            116,
+            95,
+            99,
+            111,
+            117,
+            110,
+            116,
+            17,
+            5,
+            112,
+            104,
+            97,
+            115,
+            101,
+            124,
+            82,
+            69,
+            80,
+            65,
+            73,
+            82,
+            95,
+            82,
+            69,
+            81,
+            85,
+            73,
+            82,
+            69,
+            68,
+            13,
+            114,
+            101,
+            118,
+            105,
+            101,
+            119,
+            95,
+            100,
+            105,
+            103,
+            101,
+            115,
+            116,
+            188,
+            4,
+            115,
+            104,
+            97,
+            50,
+            53,
+            54,
+            58,
+            54,
+            97,
+            53,
+            48,
+            52,
+            50,
+            99,
+            57,
+            56,
+            54,
+            99,
+            53,
+            99,
+            57,
+            99,
+            51,
+            52,
+            48,
+            54,
+            53,
+            102,
+            53,
+            98,
+            97,
+            57,
+            100,
+            48,
+            56,
+            97,
+            57,
+            55,
+            101,
+            101,
+            55,
+            55,
+            98,
+            99,
+            57,
+            56,
+            50,
+            97,
+            99,
+            54,
+            101,
+            98,
+            101,
+            99,
+            99,
+            98,
+            52,
+            49,
+            48,
+            101,
+            51,
+            100,
+            101,
+            50,
+            55,
+            56,
+            50,
+            97,
+            51,
+            50,
+            54
+          ],
+          "readable": "{\"open_defect_count\":2,\"phase\":\"REPAIR_REQUIRED\",\"review_digest\":\"sha256:6a5042c986c5c9c34065f5ba9d08a97ee77bc982ac6ebeccb410e3de2782a326\"}"
+        }
+      },
+      "consensus_result": "MAJORITY_DISAGREE",
+      "rounds": 4,
+      "votes_committed": 5,
+      "votes_revealed": 5,
+      "vote_types": {
+        "DISAGREE": 3,
+        "IDLE": 2
+      }
+    }
+  ],
+  "expected_failure_label": "EXPECTED_REPLAYED_REPAIR_REVIEW_CANNOT_SETTLE_TWICE",
+  "expected_failure_transactions": [],
+  "demo_result": "STOPPED_NO_CONSENSUS",
+  "synthetic_fixture_note": "The station, test outcomes, participant roles, and 100-unit escrow are synthetic demonstration fixtures. The fetched Open-Meteo precipitation record and DFRobot calibration example are real public source content, but they do not attest that a physical station was built, tested, repaired, or calibrated. Ledger units are not GEN, a token, payment, custody, or a commitment to real work.",
+  "public_view_readback": {
+    "terms": {
+      "brief": "Build and deliver a maintainable solar-powered water testing station for rural clinics, meeting the agreed safety and performance criteria.",
+      "buyer": "0xdb433ff614bdd1ece21aa97221c3e0a7ecf79c92",
+      "criteria": [
+        {
+          "allocation_units": 60,
+          "criterion_id": "weatherproofing",
+          "description": "The enclosure withstands the documented outdoor rain exposure without water reaching electronics."
+        },
+        {
+          "allocation_units": 40,
+          "criterion_id": "calibration",
+          "description": "The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard."
+        }
+      ],
+      "delivery_deadline": "2030-01-05T00:00:00Z",
+      "final_resolution_deadline": "2030-01-20T00:00:00Z",
+      "max_repair_versions": 1,
+      "phase": "AWAITING_CLAIMS",
+      "remedy_rule": "release accepted or remedied criterion allocations; refund each unresolved defect's full criterion allocation",
+      "review_window_seconds": 86400,
+      "supplier": "0x2c8eb5db1105a85be66badafed88d10cf393cdd8",
+      "terms_accepted": true,
+      "terms_digest": "sha256:1aa10f75d2e0c520178255601193a56ba6208253af11d2efc2540d92ca314be6",
+      "total_units": 100
+    },
+    "submission_v1": {
+      "kind": "INITIAL",
+      "submitted_at": "2026-09-28T01:56:36Z",
+      "summary": "Synthetic demonstration fixture, not a physical station: version 1 lacks a sealed enclosure. The fixture records simulated ingress during the public Lagos-area 59.1 mm rain day on 2026-07-10. It also records a simulated conductivity reading of 1,520 µS/cm against the frozen 1,413 µS/cm standard at 25°C, outside the ±2% tolerance.",
+      "url": "https://archive-api.open-meteo.com/v1/archive?latitude=6.5244&longitude=3.3792&start_date=2026-07-10&end_date=2026-07-10&daily=precipitation_sum&timezone=UTC",
+      "version": 1
+    },
+    "weatherproofing_state": {
+      "allocation_units": 60,
+      "claim": null,
+      "criterion_id": "weatherproofing",
+      "description": "The enclosure withstands the documented outdoor rain exposure without water reaching electronics.",
+      "state": "UNREVIEWED"
+    },
+    "calibration_state": {
+      "allocation_units": 40,
+      "claim": null,
+      "criterion_id": "calibration",
+      "description": "The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard.",
+      "state": "UNREVIEWED"
+    },
+    "accounting": {
+      "conserved": true,
+      "escrow_units": 100,
+      "refunded_units": 0,
+      "released_units": 0,
+      "settlement_done": false,
+      "total_units": 100
+    }
+  },
+  "demo_fixture": {
+    "initial_submission_summary": "Synthetic demonstration fixture, not a physical station: version 1 lacks a sealed enclosure. The fixture records simulated ingress during the public Lagos-area 59.1 mm rain day on 2026-07-10. It also records a simulated conductivity reading of 1,520 µS/cm against the frozen 1,413 µS/cm standard at 25°C, outside the ±2% tolerance.",
+    "claims": [
+      {
+        "criterion_id": "weatherproofing",
+        "allegation": "In this synthetic fixture, water reached the electronics during outdoor rain exposure corresponding to the public 2026-07-10 Lagos-area precipitation record.",
+        "evidence_url": "https://archive-api.open-meteo.com/v1/archive?latitude=6.5244&longitude=3.3792&start_date=2026-07-10&end_date=2026-07-10&daily=precipitation_sum&timezone=UTC"
+      },
+      {
+        "criterion_id": "calibration",
+        "allegation": "In this synthetic fixture, the 1,520 µS/cm reading exceeds the frozen ±2% tolerance around the 1,413 µS/cm calibration standard at 25°C.",
+        "evidence_url": "https://raw.githubusercontent.com/DFRobot/GravityTDS/master/GravityTDSExample/GravityTDSExample.ino"
+      }
+    ],
+    "repair_submission_summary": "Synthetic demonstration fixture, not a physical repair: version 2 replaces the enclosure gasket and seals the cable gland; the fixture records a successful repeat ingress check. The conductivity reading remains 1,520 µS/cm against the 1,413 µS/cm standard, with no new calibration record, so that criterion remains unresolved.",
+    "intended_outcome": {
+      "initial_findings": {
+        "weatherproofing": "SUPPORTED",
+        "calibration": "SUPPORTED"
+      },
+      "repair_findings": {
+        "weatherproofing": "REMEDIED",
+        "calibration": "UNRESOLVED"
+      },
+      "released_units": 60,
+      "refunded_units": 40
+    },
+    "actual_work_status": "No physical station, test, repair, or calibration was performed."
+  },
+  "deployed_source_bytes": 38911,
+  "deployed_source_git_blob_sha1": "29cd50c29a0b994cb2a000b58ddcb14ec8c2df7c",
+  "onchain_source_matches_git_blob": true,
+  "terms_before_acceptance": {
+    "brief": "Build and deliver a maintainable solar-powered water testing station for rural clinics, meeting the agreed safety and performance criteria.",
+    "buyer": "0xdb433ff614bdd1ece21aa97221c3e0a7ecf79c92",
+    "criteria": [
+      {
+        "allocation_units": 60,
+        "criterion_id": "weatherproofing",
+        "description": "The enclosure withstands the documented outdoor rain exposure without water reaching electronics."
+      },
+      {
+        "allocation_units": 40,
+        "criterion_id": "calibration",
+        "description": "The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard."
+      }
+    ],
+    "delivery_deadline": "2030-01-05T00:00:00Z",
+    "final_resolution_deadline": "2030-01-20T00:00:00Z",
+    "max_repair_versions": 1,
+    "phase": "AWAITING_SUPPLIER_ACCEPTANCE",
+    "remedy_rule": "release accepted or remedied criterion allocations; refund each unresolved defect's full criterion allocation",
+    "review_window_seconds": 86400,
+    "supplier": "0x2c8eb5db1105a85be66badafed88d10cf393cdd8",
+    "terms_accepted": false,
+    "terms_digest": "sha256:1aa10f75d2e0c520178255601193a56ba6208253af11d2efc2540d92ca314be6",
+    "total_units": 100
+  },
+  "readback_after_initial_judgment": {
+    "terms": {
+      "brief": "Build and deliver a maintainable solar-powered water testing station for rural clinics, meeting the agreed safety and performance criteria.",
+      "buyer": "0xdb433ff614bdd1ece21aa97221c3e0a7ecf79c92",
+      "criteria": [
+        {
+          "allocation_units": 60,
+          "criterion_id": "weatherproofing",
+          "description": "The enclosure withstands the documented outdoor rain exposure without water reaching electronics."
+        },
+        {
+          "allocation_units": 40,
+          "criterion_id": "calibration",
+          "description": "The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard."
+        }
+      ],
+      "delivery_deadline": "2030-01-05T00:00:00Z",
+      "final_resolution_deadline": "2030-01-20T00:00:00Z",
+      "max_repair_versions": 1,
+      "phase": "AWAITING_CLAIMS",
+      "remedy_rule": "release accepted or remedied criterion allocations; refund each unresolved defect's full criterion allocation",
+      "review_window_seconds": 86400,
+      "supplier": "0x2c8eb5db1105a85be66badafed88d10cf393cdd8",
+      "terms_accepted": true,
+      "terms_digest": "sha256:1aa10f75d2e0c520178255601193a56ba6208253af11d2efc2540d92ca314be6",
+      "total_units": 100
+    },
+    "submission_v1": {
+      "kind": "INITIAL",
+      "submitted_at": "2026-09-28T01:56:36Z",
+      "summary": "Synthetic demonstration fixture, not a physical station: version 1 lacks a sealed enclosure. The fixture records simulated ingress during the public Lagos-area 59.1 mm rain day on 2026-07-10. It also records a simulated conductivity reading of 1,520 µS/cm against the frozen 1,413 µS/cm standard at 25°C, outside the ±2% tolerance.",
+      "url": "https://archive-api.open-meteo.com/v1/archive?latitude=6.5244&longitude=3.3792&start_date=2026-07-10&end_date=2026-07-10&daily=precipitation_sum&timezone=UTC",
+      "version": 1
+    },
+    "weatherproofing_state": {
+      "allocation_units": 60,
+      "claim": null,
+      "criterion_id": "weatherproofing",
+      "description": "The enclosure withstands the documented outdoor rain exposure without water reaching electronics.",
+      "state": "UNREVIEWED"
+    },
+    "calibration_state": {
+      "allocation_units": 40,
+      "claim": null,
+      "criterion_id": "calibration",
+      "description": "The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard.",
+      "state": "UNREVIEWED"
+    },
+    "accounting": {
+      "conserved": true,
+      "escrow_units": 100,
+      "refunded_units": 0,
+      "released_units": 0,
+      "settlement_done": false,
+      "total_units": 100
+    }
+  },
+  "initial_judgment_state_mutated": false,
+  "recovery_notes": [
+    "The first harness attempted to read deliverable version 2 before it existed; this caused a read-only gen_call error after the initial judgment transaction had already finalized.",
+    "A corrected read-only snapshot was taken without redeploying or repeating the judgment.",
+    "The initial judgment transaction must be evaluated using its ACCEPTED poll status, finalized receipt, leader execution, majority result, votes, and resulting public state."
+  ],
+  "record_status": "LIVE_ATTEMPT_STOPPED_NO_CONSENSUS",
+  "deployment": {
+    "status": "FINALIZED",
+    "leader_execution": "SUCCESS",
+    "contract_address": "0xbb0DD15b1E0C0b747332063E38A3a1356d44E079",
+    "source_commit": "2e03cc01d71f728e1d1df98178822f51c0c61a2b",
+    "source_git_blob_sha1": "29cd50c29a0b994cb2a000b58ddcb14ec8c2df7c",
+    "deployed_source_git_blob_sha1": "29cd50c29a0b994cb2a000b58ddcb14ec8c2df7c",
+    "source_matches_git_blob": true
+  },
+  "get_state_available": false,
+  "get_state_note": "The contract exposes get_terms, get_submission(version), get_claim(criterion_id), get_criterion_state(criterion_id), and get_accounting; it has no get_state(). The complete current-readable view snapshot is public_view_readback.",
+  "readable_view_methods": [
+    "get_terms()",
+    "get_submission(1)",
+    "get_criterion_state('weatherproofing')",
+    "get_criterion_state('calibration')",
+    "get_accounting()"
+  ],
+  "readback_unavailable_views": [
+    {
+      "method": "get_submission(2)",
+      "reason": "Version 2 was not submitted because the initial judgment transaction finalized as UNDETERMINED."
+    },
+    {
+      "method": "get_claim(criterion_id)",
+      "reason": "No claim was persisted; both get_criterion_state views return claim=null."
+    }
+  ],
+  "transaction_status_interpretation": {
+    "judgment_transaction": "0x2151aa10698625e689fed2362cdc7d07d04eca3c1280d0cca277760664a96cc7",
+    "status_sequence": {
+      "acceptance_poll_status": "UNDETERMINED",
+      "finality_status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "consensus_result": "MAJORITY_DISAGREE",
+      "vote_types": {
+        "DISAGREE": 3,
+        "IDLE": 2
+      }
+    },
+    "state_effect": "No defect claims were stored. Phase remains AWAITING_CLAIMS; both criteria remain UNREVIEWED; all 100 demo units remain escrowed.",
+    "official_status_reference": "https://docs.genlayer.com/understand-genlayer-protocol/core-concepts/transactions/transaction-statuses"
+  },
+  "expected_failure_not_run_reason": "The requested replay-abuse transaction was not sent because the initial judgment did not reach an accepted consensus result.",
+  "repository_publication": {
+    "visibility": "PRIVATE",
+    "public_after_demo_success": false,
+    "anonymous_project_url_checks": "Not applicable; repository remains private after the incomplete demo."
+  },
+  "actual_run_types": {
+    "static_review": "Source-level mechanism comparisons and bounded-input/accounting review completed; local live-demo harness Python 3.14 syntax compile passed.",
+    "mocked_direct_tests": "Previously recorded 16 parameter-expanded direct checks passed with mocked web/model responses; not rerun after the explicit example/test-fixture tolerance wording change.",
+    "integration": "Not run for this project.",
+    "live_network": "StudioNet chain 61999: deployment, supplier acceptance, and initial deliverable each finalized with leader SUCCESS. One initial judgment transaction ended in UNDETERMINED/MAJORITY_DISAGREE; public readback confirms no judgment state change. No retry or later write was sent.",
+    "evidence_mode": "Two public sources passed anonymous HTTP/UTF-8/5,000-byte curl preflight. The station/test facts are synthetic; external sources do not attest to a physical station or its measurements."
+  },
+  "self_review": {
+    "technical_readiness": {
+      "result": "FAIL",
+      "evidence": "The distinct repair/refund lifecycle was not completed because the initial defect judgment finalized with UNDETERMINED status and MAJORITY_DISAGREE votes; readback remains AWAITING_CLAIMS."
+    },
+    "distinctiveness": {
+      "result": "PASS",
+      "evidence": "Source comparison distinguishes persistent criterion claims across supplier versions from one-shot status/payout projects; the recorded direct suite covers repair persistence and per-criterion settlement.",
+      "live_demonstration": "Not established on StudioNet."
+    },
+    "evidence_readiness": {
+      "result": "FAIL",
+      "evidence": "Open-Meteo JSON passed at 286 bytes and DFRobot source at 1,876 bytes, both anonymous HTTP 200 and valid UTF-8; validator consensus did not accept the live judgment and no source snapshot was committed to contract state."
+    },
+    "verdict": "NOT READY",
+    "top_blockers": [
+      {
+        "file": "contracts/repair_refund_escrow.py",
+        "line": 138,
+        "issue": "The fetch wrapper returns availability and text but does not persist an auditable per-source HTTP/byte record, so the validator disagreement cannot be attributed to a particular fetch result from state alone."
+      },
+      {
+        "file": "contracts/repair_refund_escrow.py",
+        "line": 356,
+        "issue": "The independently executed defect assessment did not converge to an accepted result for the synthetic fixture and selected public sources."
+      },
+      {
+        "file": "contracts/repair_refund_escrow.py",
+        "line": 580,
+        "issue": "Claims are persisted only after an accepted judgment, leaving the deployment at AWAITING_CLAIMS with no repair state to demonstrate."
+      }
+    ],
+    "unverified": [
+      "Whether StudioNet validators can fetch these sources consistently during consensus.",
+      "Whether the selected public references provide sufficient evidence for an accepted two-defect judgment.",
+      "The repair/refund transition, one-time settlement replay protection, and their full post-settlement readback on StudioNet.",
+      "Any physical station, ingress test, calibration measurement, or real payment/custody.",
+      "Anonymous HTTP 200 for the project repository’s future public evidence pages; it remains private."
+    ],
+    "distinct_reusable_contribution": "A versioned defect state machine that carries only established criterion defects through bounded supplier repairs, then releases or refunds each fixed allocation once."
+  }
+}

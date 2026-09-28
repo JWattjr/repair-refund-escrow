@@ -26,7 +26,7 @@ Scope: source-level comparison against the named standalone contracts, all nine 
 | Local SlashCourt | Judges a respondent’s evidence against versioned rules for one opened case; claimant/respondent actions precede a bond-vault resolution. | SlashCourt resolves a dispute case. This contract gives the named supplier bounded repair opportunities before its criterion-specific refund. |
 | Local Mandate Gate | Judges proposal evidence against a caller’s authority and fixed policy, then derives a compliance status and budget action. | Mandate Gate governs whether a proposal may spend. This contract governs acceptance and repair of an already agreed deliverable. |
 
-**Implementation/test status:** The mechanism is implemented; the recorded direct suite passed 16 parameter-expanded cases before the example/test-fixture-only tolerance update. The live demonstration remains pending.
+**Implementation/test status:** The mechanism is implemented; the recorded direct suite passed 16 parameter-expanded cases before the example/test-fixture-only tolerance update. The single StudioNet attempt did not demonstrate the lifecycle: the initial judgment finalized as UNDETERMINED with MAJORITY_DISAGREE, and readback remains AWAITING_CLAIMS. No judgment was retried.
 
 The core transitions are in `contracts/repair_refund_escrow.py`: `submit_defects` stores a bounded claim vector, `_open_defects` carries only unresolved criteria forward, `review_repair_version` appends per-criterion repair findings, and `_settle` checks that released plus refunded allocations equal the remaining escrow before closing it. Replays cannot settle a criterion twice.
 
