@@ -13,7 +13,7 @@ EVIDENCE_QUALITY = "https://buyer.example.org/rain-test"
 EVIDENCE_CALIBRATION = "https://buyer.example.org/calibration-check"
 CRITERIA = [
     {"criterion_id": "weatherproofing", "description": "The enclosure withstands the documented outdoor rain exposure without water reaching electronics.", "allocation_units": 60},
-    {"criterion_id": "calibration", "description": "The conductivity sensor readings stay within the agreed calibration tolerance.", "allocation_units": 40},
+    {"criterion_id": "calibration", "description": "The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard.", "allocation_units": 40},
 ]
 
 

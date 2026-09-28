@@ -4,6 +4,8 @@
 
 The buyer may submit at most one claim per criterion against the current initial version. GenLayer compares each allegation with the frozen criterion, deliverable reference, and evidence reference. Unsupported claims accept that criterion; supported and uncertain findings stay open for repair. Validators independently fetch and assess the same snapshot. Later repair versions can close only those already established concerns, so the buyer cannot add late criteria or defects.
 
+Independent model review is needed because whether prose in a deliverable and its cited evidence establishes a defect cannot be reduced to a numeric field or the parties' consent alone; deterministic code keeps criterion scope, version binding, and allocation arithmetic fixed. The example sets an explicit ±2% tolerance around the 1,413 µS/cm reference at 25°C.
+
 At settlement, the full allocation for an accepted or remedied criterion is released to the supplier. The allocation for each defect still open after the repair limit or final deadline is refunded to the buyer. Deterministic accounting prevents any allocation from being released or refunded twice.
 
 ## Toolchain
