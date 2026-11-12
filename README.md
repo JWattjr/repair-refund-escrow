@@ -10,10 +10,7 @@ The model only labels. Round 1: `SUPPORTED` / `UNSUPPORTED` / `UNCLEAR`. Round 2
 `UNCLEAR`. Code derives every state, release and refund. `UNCLEAR` never pays; deadlines end retries with a
 documented default. See [docs/DESIGN.md](docs/DESIGN.md) for states, invariants and consensus details.
 
-**Status:** rewritten per the approved [design proposal](docs/DESIGN_PROPOSAL.md) and tested locally only. The
-2026-09-28 StudioNet deployment (`0xbb0DD15b...E079`) is the previous revision, which finalized UNDETERMINED
-because its evidence bytes changed on every fetch; it does not represent this source. No new deployment,
-Explorer evidence or public evidence repo exists yet. The repository is private.
+**Status:** deployed and verified on StudioNet on 2026-11-12. The source and evidence repositories are public. [Live release record](docs/LIVE_RELEASE.md) documents all nine finalized transactions, including two expected rollbacks. The current [Explorer contract](https://explorer-studio.genlayer.com/address/0xB838F846aA1141F396Dbeb2c8c4b70273d363560) settles 60 synthetic units to the supplier and refunds 40 to the buyer, with conservation verified. Deployed source commit `0fbde3d4ee9cdab8227ec9740cf9d2d56b595d72` matches the on-chain bytes (SHA-256 `e42917605024012f09a64f82adf9b881542b68c86ad06f67f8524df055c6e333`). Lint passes and all 107 mocked direct tests pass. Later documentation commits do not change the deployed source. The 2026-09-28 deployment (`0xbb0DD15b...E079`) is superseded and is not evidence for this revision. See [SUBMISSION_DRAFT.md](SUBMISSION_DRAFT.md) for evidence and limitations. No Portal submission is claimed.
 
 ## Evidence rules
 
