@@ -22,16 +22,20 @@
         "string"
       ],
       [
-        "final_resolution_deadline_iso",
+        "claim_deadline_iso",
         "string"
       ],
       [
-        "review_window_seconds",
-        "int"
+        "judgment_deadline_iso",
+        "string"
       ],
       [
-        "max_repair_versions",
-        "int"
+        "repair_deadline_iso",
+        "string"
+      ],
+      [
+        "final_deadline_iso",
+        "string"
       ]
     ],
     "kwparams": {}
@@ -49,28 +53,19 @@
       "ret": "dict",
       "payable": false
     },
-    "close_review_without_claims": {
-      "params": [],
+    "file_claims": {
+      "params": [
+        [
+          "claims_json",
+          "string"
+        ]
+      ],
       "kwparams": {},
       "readonly": false,
       "ret": "dict",
       "payable": false
     },
-    "confirm_cancellation": {
-      "params": [],
-      "kwparams": {},
-      "readonly": false,
-      "ret": "dict",
-      "payable": false
-    },
-    "expire_final_resolution": {
-      "params": [],
-      "kwparams": {},
-      "readonly": false,
-      "ret": "dict",
-      "payable": false
-    },
-    "expire_initial_delivery": {
+    "finalize": {
       "params": [],
       "kwparams": {},
       "readonly": false,
@@ -83,7 +78,13 @@
       "readonly": true,
       "ret": "dict"
     },
-    "get_claim": {
+    "get_claims": {
+      "params": [],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "array"
+    },
+    "get_criterion_state": {
       "params": [
         [
           "criterion_id",
@@ -94,11 +95,15 @@
       "readonly": true,
       "ret": "dict"
     },
-    "get_criterion_state": {
+    "get_judgment": {
       "params": [
         [
-          "criterion_id",
-          "string"
+          "round_number",
+          "int"
+        ],
+        [
+          "attempt",
+          "int"
         ]
       ],
       "kwparams": {},
@@ -122,6 +127,20 @@
       "readonly": true,
       "ret": "dict"
     },
+    "judge_defects": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
+    "judge_repair": {
+      "params": [],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "dict",
+      "payable": false
+    },
     "reject_terms": {
       "params": [],
       "kwparams": {},
@@ -129,42 +148,7 @@
       "ret": "dict",
       "payable": false
     },
-    "request_cancellation": {
-      "params": [],
-      "kwparams": {},
-      "readonly": false,
-      "ret": "null",
-      "payable": false
-    },
-    "review_repair_version": {
-      "params": [
-        [
-          "deliverable_version",
-          "int"
-        ]
-      ],
-      "kwparams": {},
-      "readonly": false,
-      "ret": "dict",
-      "payable": false
-    },
-    "submit_defects": {
-      "params": [
-        [
-          "deliverable_version",
-          "int"
-        ],
-        [
-          "claims_json",
-          "string"
-        ]
-      ],
-      "kwparams": {},
-      "readonly": false,
-      "ret": "dict",
-      "payable": false
-    },
-    "submit_initial_deliverable": {
+    "submit_delivery": {
       "params": [
         [
           "deliverable_url",
@@ -180,7 +164,7 @@
       "ret": "dict",
       "payable": false
     },
-    "submit_repair_version": {
+    "submit_repair": {
       "params": [
         [
           "deliverable_url",

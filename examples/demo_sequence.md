@@ -1,16 +1,15 @@
-# Complete demo sequence
-
-Run the executable direct-mode scenario:
+# Demo sequence (local direct mode)
 
 ```powershell
-python -m pytest tests/test_escrow.py::test_one_defect_is_repaired_and_the_other_allocation_is_refunded
+python -m pytest tests/test_repair_escrow.py::test_full_lifecycle_releases_remedied_and_refunds_unremedied
 ```
 
-1. The buyer deploys with two criteria allocated 60 and 40 demo units. The full 100-unit example escrow is reserved, and the terms digest includes the exact remedy policy.
-2. The named supplier accepts that digest, then submits deliverable version 1.
-3. The buyer alleges one rain-seal defect and one calibration defect against their named criteria. GenLayer finds both supported. The allocations remain held and the phase becomes `REPAIR_REQUIRED`.
-4. The supplier submits repair version 2. Validators independently assess only those two existing defects.
-5. The rain seal is found remedied; calibration remains unresolved. The contract releases 60 units to the supplier and refunds 40 to the buyer.
-6. The claim history remains queryable with each repair finding, and replaying review cannot settle again.
+Planned live evidence (not yet published): `handover.md` in a public repo, v1 and v2 as two pinned commits
+(198 and 199 bytes; SHA-256 `517533f9...70037` and `41bf06ac...4409c`; see `docs/DESIGN_PROPOSAL.md` section 8).
 
-Direct tests use mocks and synthetic units. They cover the intended contract transition, not real work quality or asset transfer. The 2026-09-28 StudioNet attempt is recorded separately: the initial judgment finalized as UNDETERMINED/MAJORITY_DISAGREE, public state remained AWAITING_CLAIMS, and no repair or replay write followed.
+1. Buyer deploys: `cutoff` 60 units ("at least 15 cm") and `contact` 40 units ("emergency contact phone number").
+2. Supplier accepts the terms digest and submits v1 (`Low-water cutoff: 5 cm`, `Emergency contact: TBD`).
+3. Buyer files two claims, each with a verbatim quoted line. Anyone calls `judge_defects`: both `SUPPORTED`.
+4. Supplier submits v2 (`Low-water cutoff: 20 cm`, contact unchanged). Anyone calls `judge_repair`:
+   `cutoff` `REMEDIED` (released 60), `contact` `UNREMEDIED` (refunded 40). Phase `SETTLED`.
+5. Replays (`judge_repair`, `finalize`, `file_claims`) revert. A new allegation after round 1 is rejected.

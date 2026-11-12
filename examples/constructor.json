@@ -1,10 +1,11 @@
 {
   "supplier": "0x1111111111111111111111111111111111111111",
-  "brief": "Build and deliver a maintainable solar-powered water testing station for rural clinics, meeting the agreed safety and performance criteria.",
-  "criteria_json": "[{\"criterion_id\":\"weatherproofing\",\"description\":\"The enclosure withstands the documented outdoor rain exposure without water reaching electronics.\",\"allocation_units\":60},{\"criterion_id\":\"calibration\",\"description\":\"The conductivity sensor readings at 25°C stay within ±2% of the 1,413 µS/cm calibration standard.\",\"allocation_units\":40}]",
+  "brief": "Deliver a fictional pump controller handover note meeting the agreed criteria.",
+  "criteria_json": "[{\"criterion_id\":\"cutoff\",\"description\":\"The handover states a low-water cutoff of at least 15 cm.\",\"allocation_units\":60},{\"criterion_id\":\"contact\",\"description\":\"The handover states an emergency contact phone number.\",\"allocation_units\":40}]",
   "total_units": 100,
   "delivery_deadline_iso": "2030-01-05T00:00:00Z",
-  "final_resolution_deadline_iso": "2030-01-20T00:00:00Z",
-  "review_window_seconds": 86400,
-  "max_repair_versions": 1
+  "claim_deadline_iso": "2030-01-10T00:00:00Z",
+  "judgment_deadline_iso": "2030-01-15T00:00:00Z",
+  "repair_deadline_iso": "2030-01-20T00:00:00Z",
+  "final_deadline_iso": "2030-01-25T00:00:00Z"
 }

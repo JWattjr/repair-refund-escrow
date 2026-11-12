@@ -1,46 +1,57 @@
 # Repair Refund Escrow
 
-`RepairRefundEscrow` stores a supplier's versioned deliverables and gives the supplier a fixed number of chances to repair buyer-claimed defects. At formation, the buyer names the supplier, freezes the brief, criterion-level payment allocations, deadlines, review window, and repair limit. The supplier must accept the exact terms digest before delivery.
+`RepairRefundEscrow` is a two-round escrow on one versioned deliverable. **Round 1:** the buyer raises
+criterion-linked defects on version 1 and validators judge whether each is supported. **Round 2:** the
+supplier submits one repair version and validators judge whether each established defect is remedied.
+Each criterion's fixed allocation is then released to the supplier or refunded to the buyer exactly once.
+No new criterion, allegation or amount can enter after round 1.
 
-The buyer may submit at most one claim per criterion against the current initial version. GenLayer compares each allegation with the frozen criterion, deliverable reference, and evidence reference. Unsupported claims accept that criterion; supported and uncertain findings stay open for repair. Validators independently fetch and assess the same snapshot. Later repair versions can close only those already established concerns, so the buyer cannot add late criteria or defects.
+The model only labels. Round 1: `SUPPORTED` / `UNSUPPORTED` / `UNCLEAR`. Round 2: `REMEDIED` / `UNREMEDIED` /
+`UNCLEAR`. Code derives every state, release and refund. `UNCLEAR` never pays; deadlines end retries with a
+documented default. See [docs/DESIGN.md](docs/DESIGN.md) for states, invariants and consensus details.
 
-Independent model review is needed because whether prose in a deliverable and its cited evidence establishes a defect cannot be reduced to a numeric field or the parties' consent alone; deterministic code keeps criterion scope, version binding, and allocation arithmetic fixed. The example sets an explicit ±2% tolerance around the 1,413 µS/cm reference at 25°C.
+**Status:** rewritten per the approved [design proposal](docs/DESIGN_PROPOSAL.md) and tested locally only. The
+2026-09-28 StudioNet deployment (`0xbb0DD15b...E079`) is the previous revision, which finalized UNDETERMINED
+because its evidence bytes changed on every fetch; it does not represent this source. No new deployment,
+Explorer evidence or public evidence repo exists yet. The repository is private.
 
-At settlement, the full allocation for an accepted or remedied criterion is released to the supplier. The allocation for each defect still open after the repair limit or final deadline is refunded to the buyer. Deterministic accounting prevents any allocation from being released or refunded twice.
+## Evidence rules
 
-## Toolchain
-
-The source pins `py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6`. A StudioNet deployment at `0xbb0DD15b1E0C0b747332063E38A3a1356d44E079` matches source commit `2e03cc01d71f728e1d1df98178822f51c0c61a2b` and its contract-file Git blob. Supplier acceptance and version 1 finalized successfully. The initial defect judgment finalized as `UNDETERMINED` with `MAJORITY_DISAGREE`; public views remain `AWAITING_CLAIMS`, so no repair was submitted. The release record documents the incomplete attempt. This repository remains private. `requirements.txt` pins the locally installed v0.6 RC test toolchain.
-
-```powershell
-py -3.14 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-genvm-lint lint contracts/repair_refund_escrow.py
-genvm-lint validate contracts/repair_refund_escrow.py
-genvm-lint schema contracts/repair_refund_escrow.py --output contracts/abi.json
-python -m pytest
-```
-
-Direct tests mock web and model responses. They do not establish live consensus, network finality, or remote runner availability.
+Deliverables must be small files on `raw.githubusercontent.com`, pinned to a 40-hex commit
+(`https://raw.githubusercontent.com/<owner>/<repo>/<commit>/<path>`), at most 5000 raw bytes. The repair must
+be the same owner, repo and path at a different commit. A fetch counts only for HTTP 200, 1 to 5000 raw bytes,
+strict UTF-8 and non-blank text. Anything else is unavailable and forces every label to `UNCLEAR` without a model call.
 
 ## Lifecycle
 
-1. The buyer deploys with a named supplier, brief, criteria with positive allocations summing exactly to the escrow budget, an initial delivery deadline, a final resolution deadline, a bounded claim window, and a repair-version limit. These terms and the remedy rule are hashed.
-2. The supplier accepts the exact `terms_digest`. The buyer and supplier can cancel together before delivery. If the supplier does not accept or deliver by the frozen deadline, anyone may close the escrow for a full buyer refund.
-3. The supplier submits version 1 with a bounded HTTPS deliverable reference and summary. The contract opens a review window that cannot pass the final resolution deadline.
-4. The buyer submits zero or more criterion-specific defect claims, each with an allegation and evidence reference. GenLayer independently assesses only the listed claims. Unsupported allegations accept their criteria; supported or uncertain claims stay open; unclaimed criteria are accepted.
-5. For open claims, the supplier may submit up to the frozen number of complete repair versions. A permissionless review assesses each version against the exact established defects. It cannot create new defect claims.
-6. Fully accepted or remedied work settles to the supplier. After the repair limit or final resolution deadline, accepted and remedied criterion allocations release to the supplier and each still-open criterion allocation returns to the buyer.
+1. Buyer deploys with a named supplier, brief, 1-4 criteria whose allocations sum to the budget, and five strictly
+   ordered deadlines: delivery < claim < judgment < repair < final. Terms are hashed.
+2. Supplier `accept_terms(digest)` (or `reject_terms`), then `submit_delivery(url, summary)` with the pinned v1 URL.
+3. Buyer `file_claims` once: each claim is `{criterion_id, allegation, quoted_line}` where `quoted_line` is a verbatim
+   line of v1. Unclaimed criteria are released immediately. An empty batch settles everything to the supplier.
+4. Anyone calls `judge_defects` (max 3 attempts). `SUPPORTED` stays open, `UNSUPPORTED` releases, `UNCLEAR` is retried.
+   A quoted line that is not in v1 forces `UNSUPPORTED`.
+5. Supplier `submit_repair(url, summary)` (one repair only), then anyone calls `judge_repair` (max 3 attempts).
+   `REMEDIED` releases, `UNREMEDIED` refunds. `REMEDIED` while the quoted line is still in v2 becomes `UNCLEAR`.
+6. Anyone calls `finalize()` after a deadline: unresolved round-1 claims release to the supplier; unresolved
+   defects (no repair, or still `UNCLEAR`) refund the buyer; missed acceptance cancels, missed delivery refunds.
 
 ## API
 
-Writes are `accept_terms`, `reject_terms`, `request_cancellation`, `confirm_cancellation`, `submit_initial_deliverable`, `submit_defects`, `close_review_without_claims`, `submit_repair_version`, `review_repair_version`, `expire_initial_delivery`, and `expire_final_resolution`. Views are `get_terms`, `get_submission`, `get_claim`, `get_criterion_state`, and `get_accounting`. The generated ABI is [contracts/abi.json](contracts/abi.json).
+Writes: `accept_terms`, `reject_terms`, `submit_delivery`, `file_claims`, `judge_defects`, `submit_repair`,
+`judge_repair`, `finalize`. Views: `get_terms`, `get_submission`, `get_claims`, `get_criterion_state`,
+`get_judgment`, `get_accounting`. ABI: [contracts/abi.json](contracts/abi.json). Constructor example:
+[examples/constructor.json](examples/constructor.json). Demo: [examples/demo_sequence.md](examples/demo_sequence.md).
 
-The constructor example is [examples/constructor.json](examples/constructor.json), and the focused full lifecycle is [examples/demo_sequence.md](examples/demo_sequence.md).
+## Verify
 
-## Bounds and failure behavior
+```powershell
+..\.venv\Scripts\Activate.ps1
+$env:GENVM_VERSION = "v0.6.0-rc5"
+genvm-lint check contracts/repair_refund_escrow.py
+python -m pytest
+```
 
-The contract supports up to 8 acceptance criteria and claims, at most 3 repair versions, bounded text and evidence, and HTTPS URLs with public-DNS hostname syntax. Model output must bind to the frozen terms, current submission, criterion IDs, and fetched evidence snapshot. Malformed output, invented citations, missing required evidence, or validator disagreement cannot authorize a settlement. Unavailable claim or repair evidence remains uncertain and keeps the allocation held until repair or final deadline.
-
-The ledger uses demonstration units created in contract state; no real asset is transferred or held. Fetch does not prove publisher identity, signatures, redirect safety, DNS resolution, or freshness. The model can misread technical evidence. See [mechanism differentiation](docs/MECHANISM_DIFFERENTIATION.md), [test matrix](docs/TEST_MATRIX.md), [security notes](docs/SECURITY_NOTES.md), and the [undeployed submission draft](SUBMISSION_DRAFT.md).
+Direct tests mock web and model responses. They do not establish live consensus or network finality. Units are
+demonstration bookkeeping; no asset is held or transferred. Fetching does not prove publisher identity, and the
+model can misread evidence. See [docs/TEST_MATRIX.md](docs/TEST_MATRIX.md).

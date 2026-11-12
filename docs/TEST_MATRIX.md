@@ -1,20 +1,24 @@
 # Test matrix
 
-Run `python -m pytest` from the repository root. Direct-mode tests mock web/model responses and do not establish live consensus or network finality.
+Run `python -m pytest` from the repository root (107 tests). Direct-mode tests mock web and model responses and do
+not establish live consensus or network finality. Every scenario calls `check()`, which asserts
+`escrow + released + refunded == total` and that those totals equal the sum of criterion states.
 
-| Invariant or behavior | Test |
+| Requirement | Tests (`tests/test_repair_escrow.py`) |
 |---|---|
-| One repair remedies one criterion, leaves another open, then releases 60 and refunds 40 exactly once | `test_one_defect_is_repaired_and_the_other_allocation_is_refunded` |
-| Unsupported allegations release their criterion allocation and cannot be replaced by a later claim batch | `test_unsupported_claim_releases_its_allocation_and_rejects_late_expansion` |
-| Malformed model fields revert without moving funds; validator disagreement is rejected by the direct validator | `test_malformed_and_disagreeing_defect_assessments_do_not_change_claim_state` |
-| Unavailable evidence stays uncertain and held until the final deadline refund | `test_unavailable_claim_evidence_remains_held_and_can_be_refunded_at_final_deadline` |
-| Exact terms acceptance and mutual pre-delivery cancellation | `test_terms_require_supplier_acceptance_and_cancellation_is_mutual` |
-| Missing initial delivery refunds after, but not at, the delivery deadline | `test_no_delivery_after_frozen_deadline_refunds_escrow` |
-| Missing supplier acceptance also refunds after the delivery deadline | `test_no_supplier_acceptance_by_delivery_deadline_refunds_escrow` |
-| No buyer claim by the review deadline accepts all criteria under frozen terms | `test_missed_review_deadline_accepts_all_criteria_without_claim_expansion` |
-| Budget, allocation sum, review window, and repair limit are bounded | `test_constructor_rejects_unfunded_allocations_or_unbounded_policy` (4 parameter cases) |
+| Full two-round lifecycle: 60 released, 40 refunded, stored sources with byte count and SHA-256 | `test_full_lifecycle_releases_remedied_and_refunds_unremedied`, `test_recorded_source_hash_matches_the_raw_bytes` |
+| Other outcomes: unclaimed released, all unsupported, empty batch | `test_unclaimed_criterion_*`, `test_all_unsupported_*`, `test_empty_claim_batch_*` |
+| Code outranks the model: false quote, remedied-with-line-present, label normalization, missing IDs | `test_model_label_cannot_outrank_a_false_quote`, `test_remedied_with_defect_line_*`, `test_labels_are_normalised_*` |
+| Unknown IDs and labels, extra fields, non-JSON (8 cases) revert with no state change | `test_invalid_model_output_reverts_without_state_change` |
+| New or unclaimed IDs in round 2 rejected | `test_round_two_rejects_unknown_ids_and_unclaimed_criteria`, `test_validator_rejects_a_new_allegation_row_in_round_two` |
+| Adversarial leader with the same headline: forged label, SHA, byte count, citations, extra row, wrong ID/label set, unavailable-but-positive, reorder, digest (17 forgeries in round 1, 5 in round 2) | `test_validator_rejects_forged_round_one_leader`, `test_validator_rejects_forged_round_two_leader` |
+| Honest-but-different validator disagrees; leader error matched | `test_validator_with_a_different_honest_model_disagrees`, `test_validator_matches_leader_error_*` |
+| Unauthorized callers in every phase; permissionless triggers | `test_unauthorized_callers_are_rejected_in_every_phase`, `test_permissionless_triggers_work_for_any_caller` |
+| Replay after settlement, frozen claims, no second repair | `test_replays_and_late_actions_*`, `test_claims_are_frozen_*`, `test_second_repair_*` |
+| Evidence failures (404, 500, empty, blank, 5001 bytes, invalid UTF-8) in both rounds never pay; exactly 5000 bytes accepted | `test_round_one_evidence_failure_*`, `test_round_two_evidence_failure_*`, `test_body_of_exactly_5000_bytes_*` |
+| Deadline defaults: bounded attempts then release; unresolved-defect refund; no repair; no claims; no delivery; no acceptance; early finalize reverts | `test_unclear_attempts_are_bounded_*`, `test_round_one_deadline_default_*`, `test_round_two_unclear_*`, `test_no_repair_*`, `test_no_claims_*`, `test_no_delivery_*`, `test_no_acceptance_*`, `test_finalize_before_any_deadline_*` |
+| Pinned-URL rules (9 bad deliverables, 4 bad repairs); constructor and claim validation | `test_deliverable_must_be_*`, `test_repair_must_be_*`, `test_constructor_rejects_*`, `test_claim_batch_validation` |
+| No `self` in nondeterministic code; full canonical comparison; frozen allowlists | `test_nondeterministic_code_never_touches_contract_state`, `test_validator_compares_the_full_canonical_result`, `test_allowlists_and_bounds_*` |
 
-| Every model-returned judgment field is validated and compared or bound to frozen input | `test_every_returned_judgment_field_is_compared_or_snapshot_bound` |
-| HTTP error, empty body, oversized body, and invalid UTF-8 keep defect allocations held for final review | `test_unavailable_claim_evidence_remains_held_and_can_be_refunded_at_final_deadline` (four response cases) |
-
-The recorded direct-mode run passed 16 tests. GenVM lint passed 3 checks, SDK validation reported 16 methods (5 views and 11 writes), and schema extraction succeeded. A StudioNet deployment, supplier acceptance, and initial delivery finalized successfully. The first defect judgment ended UNDETERMINED/MAJORITY_DISAGREE; public readback shows no claim state change. No repair, settlement, or replay transaction was sent. See the dated release record. The repo remains private.
+A mutation check (validator comparing only the first label) was caught by 5 tests, so the forgery tests do bite.
+Not covered: live consensus, real validator LLM behavior, and the GitHub raw host.
