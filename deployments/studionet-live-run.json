@@ -1,0 +1,366 @@
+{
+  "network": "GenLayer StudioNet",
+  "chain_id": 61999,
+  "source_commit": "0fbde3d4ee9cdab8227ec9740cf9d2d56b595d72",
+  "source_git_blob_sha1": "83dc7a5af1c839dde8db3fcb597f67afa450ada1",
+  "source_bytes": 30381,
+  "source_sha256": "e42917605024012f09a64f82adf9b881542b68c86ad06f67f8524df055c6e333",
+  "buyer": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+  "supplier": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+  "evidence": {
+    "v1_url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/3286314dd6492df572823a454e8a777640f9026f/handover.md",
+    "v2_url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/50bbb9ebb65ed37394f84f8ed60c4351f19b381c/handover.md"
+  },
+  "started_utc": "2026-11-12T11:00:21.402Z",
+  "steps": [
+    {
+      "label": "deploy",
+      "actor": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+      "submitted_utc": "2026-11-12T11:00:21.404Z",
+      "expected_failure": false,
+      "hash": "0xb80f42818edb60bf03970b75d6ca89d8bf71cdeb5ef88ef259b239564c071de2",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "SUCCESS",
+      "rounds": null,
+      "votes": {
+        "idle": 2,
+        "agree": 3
+      },
+      "contract_address": "0xB838F846aA1141F396Dbeb2c8c4b70273d363560"
+    },
+    {
+      "label": "accept_terms",
+      "actor": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+      "submitted_utc": "2026-11-12T11:01:04.837Z",
+      "expected_failure": false,
+      "hash": "0x252269041ef38693a45fa81ad8280a23bc0bacc0a78d49f776eaf246d61db540",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "SUCCESS",
+      "rounds": null,
+      "votes": {
+        "agree": 4,
+        "idle": 1
+      }
+    },
+    {
+      "label": "submit_delivery_v1",
+      "actor": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+      "submitted_utc": "2026-11-12T11:01:45.045Z",
+      "expected_failure": false,
+      "hash": "0xae9622c09e383fc45a201c965971f1dcc3d326f49796689003289996ab471f72",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "SUCCESS",
+      "rounds": null,
+      "votes": {
+        "agree": 4,
+        "idle": 1
+      }
+    },
+    {
+      "label": "file_claims",
+      "actor": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+      "submitted_utc": "2026-11-12T11:02:24.063Z",
+      "expected_failure": false,
+      "hash": "0x52db68f78c4e1730f819acd209e1a9a546540a995c5384a91f2b3ed7f02f5d5d",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "SUCCESS",
+      "rounds": null,
+      "votes": {
+        "agree": 5
+      }
+    },
+    {
+      "label": "judge_defects_round1",
+      "actor": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+      "submitted_utc": "2026-11-12T11:03:04.605Z",
+      "expected_failure": false,
+      "hash": "0x44714caa5831969e31d1d77f20f63803f83fabd2209c19215d9e80054f9450ef",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "SUCCESS",
+      "rounds": null,
+      "votes": {
+        "idle": 2,
+        "agree": 3
+      }
+    },
+    {
+      "label": "submit_repair_v2",
+      "actor": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+      "submitted_utc": "2026-11-12T11:03:55.309Z",
+      "expected_failure": false,
+      "hash": "0xe3008bd461d3a02d1d99bec3ecf44c83e9e8a057fd87ffbfc3fb17cdcf5ab7d1",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "SUCCESS",
+      "rounds": null,
+      "votes": {
+        "idle": 2,
+        "agree": 3
+      }
+    },
+    {
+      "label": "judge_repair_round2",
+      "actor": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+      "submitted_utc": "2026-11-12T11:04:31.693Z",
+      "expected_failure": false,
+      "hash": "0x60ef35e634642d2ec6878b18724fa4e1a95be3d6c0c206170cfb02f78763d623",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "SUCCESS",
+      "rounds": null,
+      "votes": {
+        "agree": 3,
+        "idle": 2
+      }
+    },
+    {
+      "label": "expected_failure_new_claims_after_round1",
+      "actor": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+      "submitted_utc": "2026-11-12T11:05:17.496Z",
+      "expected_failure": true,
+      "hash": "0x72ce699e241a7e2b8051251f141573b8c72871274333157ff2573735fae83379",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "ERROR",
+      "rounds": null,
+      "votes": {
+        "idle": 1,
+        "agree": 4
+      }
+    },
+    {
+      "label": "expected_failure_finalize_after_settlement",
+      "actor": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+      "submitted_utc": "2026-11-12T11:05:57.779Z",
+      "expected_failure": true,
+      "hash": "0x6b68a2fb9f9996a50b55515e1d7f717ed11f19724bc957ed191d5ec86f364c39",
+      "status": "FINALIZED",
+      "consensus_result": "MAJORITY_AGREE",
+      "leader_execution": "ERROR",
+      "rounds": null,
+      "votes": {
+        "agree": 4,
+        "idle": 1
+      }
+    }
+  ],
+  "constructor_args": [
+    "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
+    "Deliver a fictional pump controller handover note meeting the agreed criteria.",
+    "[{\"criterion_id\":\"cutoff\",\"description\":\"The handover states a low-water cutoff of at least 15 cm.\",\"allocation_units\":60},{\"criterion_id\":\"contact\",\"description\":\"The handover states an emergency contact phone number.\",\"allocation_units\":40}]",
+    100,
+    "2030-01-05T00:00:00Z",
+    "2030-01-10T00:00:00Z",
+    "2030-01-15T00:00:00Z",
+    "2030-01-20T00:00:00Z",
+    "2030-01-25T00:00:00Z"
+  ],
+  "contract_address": "0xB838F846aA1141F396Dbeb2c8c4b70273d363560",
+  "explorer_url": "https://explorer-studio.genlayer.com/address/0xB838F846aA1141F396Dbeb2c8c4b70273d363560",
+  "terms_before_acceptance": {
+    "brief": "Deliver a fictional pump controller handover note meeting the agreed criteria.",
+    "buyer": "0xdb433ff614bdd1ece21aa97221c3e0a7ecf79c92",
+    "criteria": [
+      {
+        "allocation_units": 60,
+        "criterion_id": "cutoff",
+        "description": "The handover states a low-water cutoff of at least 15 cm."
+      },
+      {
+        "allocation_units": 40,
+        "criterion_id": "contact",
+        "description": "The handover states an emergency contact phone number."
+      }
+    ],
+    "deadlines": {
+      "claim": "2030-01-10T00:00:00Z",
+      "delivery": "2030-01-05T00:00:00Z",
+      "final": "2030-01-25T00:00:00Z",
+      "judgment": "2030-01-15T00:00:00Z",
+      "repair": "2030-01-20T00:00:00Z"
+    },
+    "max_attempts_per_round": 3,
+    "phase": "AWAITING_ACCEPTANCE",
+    "supplier": "0x2c8eb5db1105a85be66badafed88d10cf393cdd8",
+    "terms_digest": "sha256:caea55f4ad2967e92cb97c5e38c0d48ee1d8d5e3bff8c2ceeaa0a8685b6d9825",
+    "total_units": 100
+  },
+  "after_round1": {
+    "cutoff": {
+      "allocation_units": 60,
+      "criterion_id": "cutoff",
+      "description": "The handover states a low-water cutoff of at least 15 cm.",
+      "state": "SUPPORTED"
+    },
+    "contact": {
+      "allocation_units": 40,
+      "criterion_id": "contact",
+      "description": "The handover states an emergency contact phone number.",
+      "state": "SUPPORTED"
+    },
+    "judgment": {
+      "input_digest": "sha256:9cac6fb0ab1f3b05e78492e668a1e80c41af539bb5298f4289e5455ea342a544",
+      "labels": [
+        {
+          "criterion_id": "cutoff",
+          "label": "SUPPORTED"
+        },
+        {
+          "criterion_id": "contact",
+          "label": "SUPPORTED"
+        }
+      ],
+      "sources": [
+        {
+          "byte_count": 198,
+          "sha256": "517533f968fec6f83fa11a06c8f7fb6240d77558fc0d68bc47cd117b95d70037",
+          "status": "fetched",
+          "url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/3286314dd6492df572823a454e8a777640f9026f/handover.md"
+        }
+      ]
+    },
+    "accounting": {
+      "conserved": true,
+      "escrow_units": 100,
+      "phase": "REPAIR_REQUIRED",
+      "refunded_units": 0,
+      "released_units": 0,
+      "round1_attempts": 1,
+      "round2_attempts": 0,
+      "total_units": 100
+    }
+  },
+  "final": {
+    "terms": {
+      "brief": "Deliver a fictional pump controller handover note meeting the agreed criteria.",
+      "buyer": "0xdb433ff614bdd1ece21aa97221c3e0a7ecf79c92",
+      "criteria": [
+        {
+          "allocation_units": 60,
+          "criterion_id": "cutoff",
+          "description": "The handover states a low-water cutoff of at least 15 cm."
+        },
+        {
+          "allocation_units": 40,
+          "criterion_id": "contact",
+          "description": "The handover states an emergency contact phone number."
+        }
+      ],
+      "deadlines": {
+        "claim": "2030-01-10T00:00:00Z",
+        "delivery": "2030-01-05T00:00:00Z",
+        "final": "2030-01-25T00:00:00Z",
+        "judgment": "2030-01-15T00:00:00Z",
+        "repair": "2030-01-20T00:00:00Z"
+      },
+      "max_attempts_per_round": 3,
+      "phase": "SETTLED",
+      "supplier": "0x2c8eb5db1105a85be66badafed88d10cf393cdd8",
+      "terms_digest": "sha256:caea55f4ad2967e92cb97c5e38c0d48ee1d8d5e3bff8c2ceeaa0a8685b6d9825",
+      "total_units": 100
+    },
+    "submission_1": {
+      "kind": "INITIAL",
+      "submitted_at": "2026-11-12T11:01:46Z",
+      "summary": "Version one of the fictional handover note.",
+      "url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/3286314dd6492df572823a454e8a777640f9026f/handover.md",
+      "version": 1
+    },
+    "submission_2": {
+      "kind": "REPAIR",
+      "submitted_at": "2026-11-12T11:03:57Z",
+      "summary": "Raised the cutoff in version two.",
+      "url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/50bbb9ebb65ed37394f84f8ed60c4351f19b381c/handover.md",
+      "version": 2
+    },
+    "claims": [
+      {
+        "allegation": "The stated low-water cutoff is 5 cm, below the required 15 cm.",
+        "criterion_id": "cutoff",
+        "quoted_line": "Low-water cutoff: 5 cm"
+      },
+      {
+        "allegation": "No emergency contact phone number is given; the field says TBD.",
+        "criterion_id": "contact",
+        "quoted_line": "Emergency contact: TBD"
+      }
+    ],
+    "cutoff": {
+      "allocation_units": 60,
+      "criterion_id": "cutoff",
+      "description": "The handover states a low-water cutoff of at least 15 cm.",
+      "state": "RELEASED"
+    },
+    "contact": {
+      "allocation_units": 40,
+      "criterion_id": "contact",
+      "description": "The handover states an emergency contact phone number.",
+      "state": "REFUNDED"
+    },
+    "judgment_1_1": {
+      "input_digest": "sha256:9cac6fb0ab1f3b05e78492e668a1e80c41af539bb5298f4289e5455ea342a544",
+      "labels": [
+        {
+          "criterion_id": "cutoff",
+          "label": "SUPPORTED"
+        },
+        {
+          "criterion_id": "contact",
+          "label": "SUPPORTED"
+        }
+      ],
+      "sources": [
+        {
+          "byte_count": 198,
+          "sha256": "517533f968fec6f83fa11a06c8f7fb6240d77558fc0d68bc47cd117b95d70037",
+          "status": "fetched",
+          "url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/3286314dd6492df572823a454e8a777640f9026f/handover.md"
+        }
+      ]
+    },
+    "judgment_2_1": {
+      "input_digest": "sha256:2ab4337731dd4c2167ad3029cfbda2796dee2cbe88e0ca4ba9d470b61ed08604",
+      "labels": [
+        {
+          "criterion_id": "cutoff",
+          "label": "REMEDIED"
+        },
+        {
+          "criterion_id": "contact",
+          "label": "UNREMEDIED"
+        }
+      ],
+      "sources": [
+        {
+          "byte_count": 198,
+          "sha256": "517533f968fec6f83fa11a06c8f7fb6240d77558fc0d68bc47cd117b95d70037",
+          "status": "fetched",
+          "url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/3286314dd6492df572823a454e8a777640f9026f/handover.md"
+        },
+        {
+          "byte_count": 199,
+          "sha256": "41bf06ac4f027ff393e1516b28ebd7909be3e0cc644efa53131c848ec604409c",
+          "status": "fetched",
+          "url": "https://raw.githubusercontent.com/JWattjr/repair-refund-escrow-evidence/50bbb9ebb65ed37394f84f8ed60c4351f19b381c/handover.md"
+        }
+      ]
+    },
+    "accounting": {
+      "conserved": true,
+      "escrow_units": 0,
+      "phase": "SETTLED",
+      "refunded_units": 40,
+      "released_units": 60,
+      "round1_attempts": 1,
+      "round2_attempts": 1,
+      "total_units": 100
+    }
+  },
+  "onchain_source_matches_local": true,
+  "readback_utc": "2026-11-12T11:07:17.078Z"
+}

@@ -1,15 +1,17 @@
 # Mechanism differentiation
 
-## Nearest comparison
-
-The nearest local comparison is Semantic Milestone Matrix Oracle, which evaluates predefined milestones, and QuestChain, which tracks milestone progress. This project instead carries defects identified on one deliverable version into later supplier repair versions. Each criterion keeps its own frozen allocation and defect history through that version lifecycle.
+The closest comparators are Semantic Milestone Matrix Oracle (labels frozen milestones once and derives a score) and QuestChain (labels milestones, derives points, retries while PENDING). Round 1 here resembles them. What they lack is round 2.
 
 ## New state transition
 
-The defining transition is `version N → criterion-bound supported defect → supplier repair version N+1 → per-defect remedied/unresolved judgment → release/refund of that criterion's fixed allocation`. The buyer gets one bounded initial claim batch tied to the current deliverable. Later assessments can close those defects but cannot introduce a new criterion, allegation, or payment amount.
+`version 1 -> buyer-quoted defect (SUPPORTED) -> supplier repair version 2 -> per-defect REMEDIED / UNREMEDIED -> release or refund of that criterion's fixed allocation`.
 
-The supplier accepts the hashed terms before work starts. Payment allocations must sum to the escrow budget at formation. Deterministic settlement releases each accepted or remedied allocation once and refunds the full allocation for each still-open defect when the repair limit or final deadline is reached.
+Round 2 asks a different question from round 1: not "is the criterion met" but "was this specific established defect fixed between these two pinned versions". The claim set is frozen between rounds, so no criterion, allegation or amount can be added. A code guard also stops a remedy being accepted while the quoted defect line is still present.
+
+## Shared idiom, stated honestly
+
+Closed label set, `UNCLEAR` never paying, code-derived outcome and full canonical validator comparison are the same design idiom used in parametric-coverage-pool and calibrated-forecast-pool. They are shared plumbing, not the contribution.
 
 ## Limits
 
-The escrow and payouts are internal demonstration units rather than real custody. Model judgments do not prove work quality, source authenticity, or objective defect facts. The local comparison does not establish ecosystem-wide originality or Portal outcomes.
+Units are synthetic. Model judgments do not prove real work quality or source authenticity. This is a local comparison and establishes no ecosystem-wide originality or Portal outcome.

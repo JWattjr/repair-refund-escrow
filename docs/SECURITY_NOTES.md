@@ -2,20 +2,21 @@
 
 ## Terms and permissions
 
-- The constructor sender is the buyer. The constructor names one different supplier and freezes the brief, criterion allocations, delivery and resolution deadlines, claim window, and repair limit. The remedy policy is fixed: release accepted or remedied criterion allocations; refund full allocations for defects still open at the repair limit or final deadline.
-- The supplier must accept the exact terms digest before submitting work. Supplier rejection returns the full demo escrow. Before initial delivery, cancellation requires buyer request plus supplier confirmation. If acceptance or delivery is overdue, any participant can finalize the full refund.
-- Only the buyer may submit the one initial claim batch. Each criterion can appear at most once. The buyer cannot file new claims after that assessment; repair reviews may only assess existing claims.
-- The supplier can submit no more than the constructor-fixed number of repair versions. Anyone can submit a repair review, avoiding exclusive buyer control of the review call. Final deadline expiry settles the remaining allocations deterministically.
+- The constructor sender is the buyer and names one different supplier. Brief, criteria, allocations and five ordered deadlines are frozen and hashed. The supplier must accept the exact digest before delivering; `reject_terms` refunds in full.
+- Only the supplier may deliver and repair; only the buyer may file claims, and only once. `judge_defects`, `judge_repair` and `finalize` are permissionless because every input is already frozen in state.
+- No method after `file_claims` accepts a criterion, allegation, quoted line or amount.
 
 ## Consensus and evidence
 
-- Defect assessment binds the brief, exact criterion descriptions and allocations, current version, allegation, delivery URL, evidence URL, fetched bodies, and terms digest into one snapshot. Repair assessment binds the same frozen criteria and only open established defects to the new version.
-- Validators independently fetch each required page and rerun the substantive judgment. Results must use exact criterion order, known citation URLs, valid findings, and the snapshot digest. Missing evidence requires `UNCERTAIN`; unknown fields, invented references, malformed schemas, or disagreement fail closed.
-- Submitted summaries, allegations, criteria descriptions, and fetched page text are untrusted prompt data. HTTPS syntax checks do not verify publisher identity, signatures, DNS resolution, redirects, timestamps, or freshness.
+- Evidence must be a `raw.githubusercontent.com` URL pinned to a 40-hex commit; a repair must keep the owner, repo and path and change the commit. Anything else reverts at submission.
+- A fetch is valid only for HTTP 200, 1 to 5000 raw bytes, strict UTF-8 and non-blank text. Otherwise the source is unavailable and every label is `UNCLEAR` with no model call.
+- The model returns only labels from a frozen allowlist per round. Unknown IDs or labels, extra fields and non-JSON revert. Code overrides the model: a quoted line that is not in version 1 forces `UNSUPPORTED`; `REMEDIED` while the line is still in version 2 becomes `UNCLEAR`.
+- Leader and validator functions are module-level and never touch contract state. The validator normalizes the leader result, re-runs the whole evaluation and requires the full canonical result (digest, per-source status, bytes, SHA-256, every label) to match exactly.
+- Fetched text, claims and criteria are untrusted prompt data. Pinning proves content stability, not publisher identity.
 
 ## Accounting and limits
 
-- Criterion allocations are positive integers and must sum exactly to the constructor budget. Settlement changes the one escrow balance once; aggregate escrow, supplier release, and buyer refund must equal the original total.
-- Up to 8 criteria, one initial claim per criterion, 3 repair versions, 30-day review windows, bounded text/evidence, and bounded URLs keep work finite.
-- A resolved defect releases that whole criterion allocation; a still-open or uncertain defect returns that whole allocation. There is no model-selected percentage or arbitrary deduction.
-- The ledger uses synthetic demo units. It has no real token custody, arbitration, or independent proof that work was performed. Direct tests use mocked model/web responses; live validator behavior and target-chain runner availability remain unverified.
+- Allocations are positive integers summing to the budget; `_close` moves each allocation out of escrow once and reverts on a settled criterion. `get_accounting().conserved` must hold.
+- `UNCLEAR` never pays. Deadline defaults: an unresolved round-1 claim releases to the supplier; an unresolved defect refunds the buyer. Each round allows at most 3 attempts; reverted judgments are not counted.
+- Bounds: 4 criteria and claims, 2 versions, 5000 bytes per source, bounded text and JSON.
+- A short `quoted_line` matches as a substring (`5 cm` also matches `25 cm`). Units are synthetic with no custody. Direct tests use mocks; one live honest-network run is recorded in `docs/LIVE_RELEASE.md`.

@@ -4,6 +4,8 @@ Scope: source-level comparison against the named standalone contracts, all nine 
 
 **Disposition: KEEP.** The implementation preserves criterion-specific defects across supplier delivery versions, permits bounded repairs of established defects, and settles each criterion allocation once from its terminal state. That is a multi-round state machine rather than a one-shot classification followed by payout.
 
+**Caveat (2026-11-12 revision):** round 1 alone would be a superficial variant of Semantic Milestone Matrix Oracle. The distinct part is round 2 (remedy judgment on a pinned repair version against frozen round-1 findings), which the November 12 StudioNet run now demonstrates; see `docs/LIVE_RELEASE.md`. The comparator rows below describe the original design and predate the rewrite (single repair, label-only judgments); parametric-coverage-pool, calibrated-forecast-pool and the user's other same-week projects share only the label/validator plumbing.
+
 | Comparator | Judgment, participants, and saved state | Difference in this contract |
 |---|---|---|
 | Standalone Semantic Milestone Matrix Oracle | Resolves a frozen milestone list to SATISFIED / NOT_SATISFIED / INCONCLUSIVE for an owner-set threshold; stores the score, verdict, and attempts. | Buyer claims become persistent per-criterion states. A named supplier may submit bounded versions, each review can remedy only an established defect, and unresolved allocations refund after the repair limit. |
@@ -26,8 +28,8 @@ Scope: source-level comparison against the named standalone contracts, all nine 
 | Local SlashCourt | Judges a respondent’s evidence against versioned rules for one opened case; claimant/respondent actions precede a bond-vault resolution. | SlashCourt resolves a dispute case. This contract gives the named supplier bounded repair opportunities before its criterion-specific refund. |
 | Local Mandate Gate | Judges proposal evidence against a caller’s authority and fixed policy, then derives a compliance status and budget action. | Mandate Gate governs whether a proposal may spend. This contract governs acceptance and repair of an already agreed deliverable. |
 
-**Implementation/test status:** The mechanism is implemented; the recorded direct suite passed 16 parameter-expanded cases before the example/test-fixture-only tolerance update. The single StudioNet attempt did not demonstrate the lifecycle: the initial judgment finalized as UNDETERMINED with MAJORITY_DISAGREE, and readback remains AWAITING_CLAIMS. No judgment was retried.
+**Implementation/test status:** rewritten and tested locally (107 mocked tests, lint clean), then run once on StudioNet on 2026-11-12: nine transactions finalized, both judgments MAJORITY_AGREE, 60 released and 40 refunded. See docs/LIVE_RELEASE.md. The superseded 2026-09-28 attempt ended UNDETERMINED because its evidence bytes changed per request.
 
-The core transitions are in `contracts/repair_refund_escrow.py`: `submit_defects` stores a bounded claim vector, `_open_defects` carries only unresolved criteria forward, `review_repair_version` appends per-criterion repair findings, and `_settle` checks that released plus refunded allocations equal the remaining escrow before closing it. Replays cannot settle a criterion twice.
+The core transitions are in contracts/repair_refund_escrow.py: file_claims freezes the claim set, judge_defects and judge_repair apply code-derived transitions from label-only judgments, and _close moves each criterion allocation out of escrow exactly once.
 
-**Evidence limit:** public weather and manufacturer references can inform the judgment, but they do not prove that this synthetic station was built or physically tested. The live demonstration must be reported as a contract lifecycle demonstration, not evidence of real work quality.
+**Evidence limit:** the demo uses a fictional commit-pinned handover note. It demonstrates the contract lifecycle, not real work quality.
